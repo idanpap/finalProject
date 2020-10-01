@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import io from "socket.io-client";
 
 const Room = (props) => {
@@ -9,6 +9,9 @@ const Room = (props) => {
   const otherUser = useRef();
   const userStream = useRef();
   const senders = useRef([]);
+  const [screenShare, setScreenShare] = useState(false);
+
+  console.log("this is useRef", senders);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -140,16 +143,20 @@ const Room = (props) => {
   }
 
   function shareScreen() {
+    setScreenShare(true);
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
       const screenTrack = stream.getTracks()[0];
-      console.log("senders current", senders);
+      console.log("screenTrack", screenTrack);
       senders.current
         .find((sender) => sender.track.kind === "video")
         .replaceTrack(screenTrack);
+
       screenTrack.onended = function () {
         senders.current
           .find((sender) => sender.track.kind === "video")
           .replaceTrack(userStream.current.getTracks()[1]);
+        setScreenShare(false);
+        console.log("share true?");
       };
     });
   }
@@ -169,7 +176,11 @@ const Room = (props) => {
         autoPlay
         ref={partnerVideo}
       />
-      <button onClick={shareScreen}>Share screen</button>
+      {screenShare ? (
+        <h2>screen shared</h2>
+      ) : (
+        <button onClick={shareScreen}>Share screen</button>
+      )}
     </div>
   );
 };
