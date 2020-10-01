@@ -142,7 +142,7 @@ const Room = (props) => {
   function shareScreen() {
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
       const screenTrack = stream.getTracks()[0];
-      console.log("senders current", senders.current);
+      console.log("senders current", senders);
       senders.current
         .find((sender) => sender.track.kind === "video")
         .replaceTrack(screenTrack);
