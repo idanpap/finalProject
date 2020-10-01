@@ -8,6 +8,7 @@
     "dev-windows": "nodemon ./bin/www"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^1.11.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "connect-mongo": "^3.2.0",
@@ -22,7 +23,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "styled-components": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
