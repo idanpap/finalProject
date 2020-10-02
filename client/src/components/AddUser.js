@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
-export default class AddProject extends Component {
+export default class AddUser extends Component {
   state = {
     title: "",
     description: "",
@@ -10,7 +10,7 @@ export default class AddProject extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("/api/projects", {
+      .post("/api/users", {
         title: this.state.title,
         description: this.state.description,
       })
@@ -36,7 +36,9 @@ export default class AddProject extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group>
-          <Form.Label htmlFor="title">Title: </Form.Label>
+          <Form.Label htmlFor="title">
+            Which language are you looking for{" "}
+          </Form.Label>
           <Form.Control
             type="text"
             id="title"
@@ -44,19 +46,19 @@ export default class AddProject extends Component {
             value={this.state.title}
             onChange={this.handleChange}
           />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label htmlFor="description">Description: </Form.Label>
-          <Form.Control
-            type="text"
-            id="description"
-            name="description"
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
+          <Form.Group>
+            <Form.Label htmlFor="description">Description: </Form.Label>
+            <Form.Control
+              type="text"
+              id="description"
+              name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
         </Form.Group>
 
-        <Button type="submit">Add a project</Button>
+        <Button type="submit">Add a Learner</Button>
       </Form>
     );
   }

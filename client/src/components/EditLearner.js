@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 
-export default class EditProject extends Component {
+export default class EditLearner extends Component {
   render() {
     return (
       <div>
-        <h2>Edit the Project</h2>
+        <h2>Edit the Learner</h2>
         <Form onSubmit={this.props.handleSubmit}>
           <Form.Group>
             <Form.Label>Title: </Form.Label>

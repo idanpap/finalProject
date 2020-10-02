@@ -1,13 +1,13 @@
-// src/components/Project.js
+// src/components/User.js
 
 import React, { Component } from "react";
 import axios from "axios";
 import LearnersList from "./LearnersList";
-import AddProject from "./AddProject";
+import AddUser from "./AddUser";
 
-export default class Projects extends Component {
+export default class Users extends Component {
   state = {
-    projects: [],
+    users: [],
   };
 
   componentDidMount() {
@@ -21,11 +21,11 @@ export default class Projects extends Component {
 
   getData = () => {
     axios
-      .get("/api/projects")
+      .get("/api/users")
       .then((response) => {
         console.log(response);
         this.setState({
-          projects: response.data,
+          users: response.data,
         });
       })
       .catch((error) => {
@@ -35,9 +35,9 @@ export default class Projects extends Component {
 
   render() {
     return (
-      <div className="projects-container">
-        <AddProject getData={this.getData} />
-        <LearnersList projects={this.state.projects} />
+      <div className="users-container">
+        <AddUser getData={this.getData} />
+        <LearnersList users={this.state.users} />
       </div>
     );
   }

@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 export default function LearnersList(props) {
   return (
     <div>
-      {props.learners.length > 0 && <h2>Find your fellow learners:</h2>}
+      {props.users.length > 0 && <h2>Find your fellow learners:</h2>}
 
-      {props.learners.map((learner) => {
+      {props.users.map((user) => {
         return (
-          <div key={learner._id}>
+          <div key={user._id}>
             <h3>
-              <Link to={`/leaners/${learner._id}`}>{learner.title}</Link>
+              <Link to={`/leaners/${user._id}`}>{user.title}</Link>
             </h3>
           </div>
         );

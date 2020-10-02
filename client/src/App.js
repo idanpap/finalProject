@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Projects from "./components/Projects";
+import Users from "./components/User";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import ProjectDetails from "./components/ProjectDetails";
+import LearnerDetails from "./components/LearnerDetails";
 import Navbar from "./components/Navbar";
 import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
@@ -28,25 +28,25 @@ class App extends Component {
 
         {/* <Route
           exact
-          path='/projects'
-          component={Projects}
+          path='/learners'
+          component={Users}
         /> */}
 
         <Route
           exact
-          path="/projects"
+          path="/learners"
           render={(props) => {
             if (this.state.user) {
-              return <Projects {...props} />;
+              return <Users {...props} />;
             } else return <Redirect to="/" />;
           }}
         />
 
         <Route
           exact
-          path="/projects/:id"
+          path="/learners/:id"
           render={(props) => (
-            <ProjectDetails user={this.state.user} {...props} />
+            <LearnerDetails user={this.state.user} {...props} />
           )}
         />
 

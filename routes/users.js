@@ -1,26 +1,26 @@
 const express = require("express");
 const router = express();
-const Project = require("../models/Project");
+const User = require("../models/User");
 
-// get all the projects
+// get all the users
 router.get("/", (req, res) => {
-  Project.find()
-    .then((projects) => {
-      res.status(200).json(projects);
+  User.find()
+    .then((users) => {
+      res.status(200).json(users);
     })
     .catch((error) => {
       res.json(error);
     });
 });
 
-// get a specific project
+// get a specific user
 router.get("/:id", (req, res) => {
-  Project.findById(req.params.id)
-    .then((project) => {
-      if (!project) {
-        res.status(404).json(project);
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json(user);
       } else {
-        res.status(200).json(project);
+        res.status(200).json(user);
       }
     })
     .catch((error) => {
@@ -28,10 +28,10 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// delete a project
+// delete a user
 router.delete("/:id", (req, res) => {
-  Project.findByIdAndDelete(req.params.id)
-    .then((project) => {
+  User.findByIdAndDelete(req.params.id)
+    .then((user) => {
       res.status(200).json({ message: "ok" });
     })
     .catch((error) => {
@@ -39,32 +39,28 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-// create a new project
+// create a new user
 router.post("/", (req, res) => {
   const { title, description } = req.body;
-  Project.create({
+  User.create({
     title,
     description,
     owner: req.user._id,
   })
-    .then((project) => {
-      res.status(201).json(project);
+    .then((user) => {
+      res.status(201).json(user);
     })
     .catch((error) => {
       res.json(error);
     });
 });
 
-// update a project
+// update a user
 router.put("/:id", (req, res) => {
   const { title, description } = req.body;
-  Project.findByIdAndUpdate(
-    req.params.id,
-    { title, description },
-    { new: true }
-  )
-    .then((project) => {
-      res.status(200).json(project);
+  User.findByIdAndUpdate(req.params.id, { title, description }, { new: true })
+    .then((user) => {
+      res.status(200).json(user);
     })
     .catch((error) => {
       res.json(error);

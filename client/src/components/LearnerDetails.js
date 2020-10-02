@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import EditProject from "./EditProject";
+import EditLearner from "./EditLearner";
 
-export default class ProjectDetails extends Component {
+export default class LearnerDetails extends Component {
   state = {
-    project: null,
+    user: null,
     error: null,
     title: "",
     description: "",
@@ -15,10 +15,10 @@ export default class ProjectDetails extends Component {
   getData = () => {
     const id = this.props.match.params.id;
     axios
-      .get(`/api/projects/${id}`)
+      .get(`/api/learners/${id}`)
       .then((response) => {
         this.setState({
-          project: response.data,
+          user: response.data,
           title: response.data.title,
           description: response.data.description,
         });
@@ -32,12 +32,12 @@ export default class ProjectDetails extends Component {
       });
   };
 
-  deleteProject = () => {
+  deleteUser = () => {
     const id = this.props.match.params.id;
     axios
-      .delete(`/api/projects/${id}`)
+      .delete(`/api/learners/${id}`)
       .then(() => {
-        this.props.history.push("/projects");
+        this.props.history.push("/learners");
       })
       .catch((error) => {
         console.log(error);
@@ -55,13 +55,13 @@ export default class ProjectDetails extends Component {
     event.preventDefault();
     const id = this.props.match.params.id;
     axios
-      .put(`/api/projects/${id}`, {
+      .put(`/api/learners/${id}`, {
         title: this.state.title,
         description: this.state.description,
       })
       .then((response) => {
         this.setState({
-          project: response.data,
+          user: response.data,
           title: response.data.title,
           description: response.data.description,
           editForm: false,
@@ -84,27 +84,27 @@ export default class ProjectDetails extends Component {
 
   render() {
     if (this.state.error) return <div>{this.state.error}</div>;
-    if (!this.state.project) return <p>Loading ...</p>;
+    if (!this.state.user) return <p>Loading ...</p>;
 
     let allowedToDelete = false;
     const user = this.props.user;
-    const owner = this.state.project.owner;
+    const owner = this.state.user.owner;
     if (user && user._id === owner) allowedToDelete = true;
 
     return (
       <div>
-        <h1>{this.state.project.title}</h1>
-        <p>{this.state.project.description}</p>
+        <h1>{this.state.user.title}</h1>
+        <p>{this.state.user.description}</p>
 
         {allowedToDelete && (
-          <Button variant="danger" onClick={this.deleteProject}>
-            Delete Project
+          <Button variant="danger" onClick={this.deleteUser}>
+            Delete User
           </Button>
         )}
 
         <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
-          <EditProject
+          <EditLearner
             {...this.state}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
@@ -114,3 +114,5 @@ export default class ProjectDetails extends Component {
     );
   }
 }
+
+//title, description, owner
