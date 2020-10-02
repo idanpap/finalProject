@@ -81,9 +81,7 @@ const Room = (props) => {
   const sendChannel = useRef([]);
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
-  const [screenShare, setScreenShare] = useState(false);
-
-  console.log("this is useRef", senders);
+  const [screenShare, setScreenShare] = useState(true);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -108,7 +106,6 @@ const Room = (props) => {
 
         socketRef.current.on("offer", handleOffer);
         //can it be two lines or do I have to do "offer", function 1 & 2?
-
         socketRef.current.on("answer", handleAnswer);
 
         socketRef.current.on("ice-candidate", handleNewICECandidateMsg);
@@ -148,9 +145,10 @@ const Room = (props) => {
     });
 
     peer.onicecandidate = handleICECandidateEvent;
+
     peer.ontrack = handleTrackEvent;
     peer.onnegotiationneeded = () => handleNegotiationNeededEvent(userID);
-
+    setScreenShare(false);
     return peer;
   }
 
@@ -206,7 +204,9 @@ const Room = (props) => {
         userStream.current
           .getTracks()
           .forEach((track) =>
-            peerRef.current.addTrack(track, userStream.current)
+            senders.current.push(
+              peerRef.current.addTrack(track, userStream.current)
+            )
           );
       })
       .then(() => {
@@ -265,7 +265,6 @@ const Room = (props) => {
     setScreenShare(true);
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
       const screenTrack = stream.getTracks()[0];
-      console.log("screenTrack", screenTrack);
       senders.current
         .find((sender) => sender.track.kind === "video")
         .replaceTrack(screenTrack);
@@ -275,7 +274,6 @@ const Room = (props) => {
           .find((sender) => sender.track.kind === "video")
           .replaceTrack(userStream.current.getTracks()[1]);
         setScreenShare(false);
-        console.log("share true?");
       };
     });
   }
