@@ -2,7 +2,7 @@
 
 import React, { Component } from "react";
 import axios from "axios";
-import ProjectList from "./ProjectList";
+import LearnersList from "./LearnersList";
 import AddProject from "./AddProject";
 
 export default class Projects extends Component {
@@ -37,7 +37,7 @@ export default class Projects extends Component {
     return (
       <div className="projects-container">
         <AddProject getData={this.getData} />
-        <ProjectList projects={this.state.projects} />
+        <LearnersList projects={this.state.projects} />
       </div>
     );
   }
