@@ -7,6 +7,7 @@ export default class Signup extends Component {
     username: "",
     password: "",
     message: "",
+    languagesSpoken: [],
   };
 
   handleChange = (event) => {
@@ -55,6 +56,29 @@ export default class Signup extends Component {
               onChange={this.handleChange}
               id="password"
             />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>I speak the following languages:</Form.Label>
+            <Form.Control as="select" multiple>
+              <option>English</option>
+              <option>German</option>
+              <option>French</option>
+              <option>Italian</option>
+              <option>Arabic</option>
+              <option>Mandarin</option>
+              <option>Hindi</option>
+              <option>Turkish</option>
+              <option>Portuguese</option>
+              <option>Spanish</option>
+              <option>Greek</option>
+              <option>Russian</option>
+              <option>Japanese</option>
+              <option>Bulgarian</option>
+              <option>Korean</option>
+              <option>Armenian</option>
+              <option>Dutch</option>
+              <option>Urdu</option>
+            </Form.Control>
           </Form.Group>
           {this.state.message && (
             <Alert variant="danger">{this.state.message}</Alert>
