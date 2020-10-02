@@ -262,31 +262,8 @@ const Room = (props) => {
     partnerVideo.current.srcObject = e.streams[0];
   }
 
-  // function shareScreen() {
-  //   // setScreenShare(true);
-  //   navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
-  //     const screenTrack = stream.getTracks()[0];
-  //     console.log("screenTrack", screenTrack);
-  //     senders.current
-  //       .find((sender) => sender.track.kind === "video")
-  //       .replaceTrack(screenTrack);
-
-  //     screenTrack.onended = function () {
-  //       senders.current
-  //         .find((sender) => sender.track.kind === "video")
-  //         .replaceTrack(userStream.current.getTracks()[1]);
-  //       // setScreenShare(false);
-  //       // console.log("share true?");
-  //     };
-  //   });
-  // }
-
   function shareScreen() {
-    // setScreenShare(true);
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
-      console.log(stream.getTracks()[0]);
-      console.log(userStream.current.getTracks()[1]);
-      console.log(senders.current, "CURRENT");
       const screenTrack = stream.getTracks()[0];
       senders.current
         .find((sender) => sender.track.kind === "video")

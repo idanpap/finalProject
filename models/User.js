@@ -4,8 +4,8 @@ const userSchema = new Schema(
   {
     username: String,
     password: String,
-    languagesSpoken: { type: Array, default: [] },
-    languagesToLearn: { type: Array, default: [] },
+    languagesSpoken: Array,
+    languagesToLearn: Array,
   },
   {
     timestamps: true,
