@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, languagesSpoken, languagesToLearn } = req.body;
 
   if (password.length < 8) {
     return res
@@ -29,6 +29,8 @@ router.post("/signup", (req, res, next) => {
       User.create({
         username: username,
         password: hash,
+        languagesSpoken: languagesSpoken,
+        languagesToLearn: languagesToLearn,
       })
         .then((dbUser) => {
           // login with passport:

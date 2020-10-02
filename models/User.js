@@ -4,6 +4,8 @@ const userSchema = new Schema(
   {
     username: String,
     password: String,
+    languagesSpoken: Array,
+    languagesToLearn: Array,
   },
   {
     timestamps: true,

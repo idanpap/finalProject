@@ -18,6 +18,39 @@ export default class Signup extends Component {
     });
   };
 
+  spokenLanguageChanges = (event) => {
+    event.preventDefault();
+    let value = [];
+    for (let i = 0; i < event.target.options.length; i++) {
+      if (event.target.options[i].selected) {
+        value.push(event.target.options[i].value);
+        console.log("this is the value from the if", value);
+      }
+    }
+    this.setState({
+      languagesSpoken: value,
+    });
+    console.log(
+      "this is the state languages spoken? ",
+      this.state.languagesSpoken,
+      "this is the value:",
+      value
+    );
+  };
+
+  languagesToLearnChanges = (event) => {
+    event.preventDefault();
+    let value = [];
+    for (let i = 0; i < event.target.options.length; i++) {
+      if (event.target.options[i].selected) {
+        value.push(event.target.options[i].value);
+      }
+    }
+    this.setState({
+      languagesToLearn: value,
+    });
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     const {
@@ -28,22 +61,24 @@ export default class Signup extends Component {
     } = this.state;
     signup(username, password, languagesSpoken, languagesToLearn).then(
       (data) => {
+        console.log(data);
         if (data.message) {
           this.setState({
             message: data.message,
-            username: "",
+            username: username,
             password: "",
-            languagesSpoken: [],
-            languagesToLearn: [],
+            languagesSpoken: languagesSpoken,
+            languagesToLearn: languagesToLearn,
           });
         } else {
           // now we need to put the user in the user key of the state of App.js
           this.props.setUser(data);
           // redirect to /projects
-          this.props.history.push("/projects");
+          this.props.history.push("/");
         }
       }
     );
+    console.log(this.state);
   };
 
   render() {
@@ -71,50 +106,62 @@ export default class Signup extends Component {
               id="password"
             />
           </Form.Group>
-          <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Group>
             <Form.Label>I speak the following languages:</Form.Label>
-            <Form.Control as="select" multiple>
-              <option>English</option>
-              <option>German</option>
-              <option>French</option>
-              <option>Italian</option>
-              <option>Arabic</option>
-              <option>Mandarin</option>
-              <option>Hindi</option>
-              <option>Turkish</option>
-              <option>Portuguese</option>
-              <option>Spanish</option>
-              <option>Greek</option>
-              <option>Russian</option>
-              <option>Japanese</option>
-              <option>Bulgarian</option>
-              <option>Korean</option>
-              <option>Armenian</option>
-              <option>Dutch</option>
-              <option>Urdu</option>
+            <Form.Control
+              as="select"
+              multiple
+              name="languagesSpoken"
+              value={this.state.languagesSpoken}
+              onChange={this.spokenLanguageChanges}
+            >
+              <option value="english">English</option>
+              <option value="german">German</option>
+              <option value="french">French</option>
+              <option value="italian">Italian</option>
+              <option value="arabic">Arabic</option>
+              <option value="mandarin">Mandarin</option>
+              <option value="hindi">Hindi</option>
+              <option value="turkish">Turkish</option>
+              <option value="portuguese">Portuguese</option>
+              <option value="spanish">Spanish</option>
+              <option value="greek">Greek</option>
+              <option value="russian">Russian</option>
+              <option value="japanese">Japanese</option>
+              <option value="bulgarian">Bulgarian</option>
+              <option value="korean">Korean</option>
+              <option value="armenian">Armenian</option>
+              <option value="dutch">Dutch</option>
+              <option value="urdu">Urdu</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Group>
             <Form.Label>I want to learn the following languages:</Form.Label>
-            <Form.Control as="select" multiple>
-              <option>English</option>
-              <option>German</option>
-              <option>French</option>
-              <option>Italian</option>
-              <option>Arabic</option>
-              <option>Mandarin</option>
-              <option>Hindi</option>
-              <option>Turkish</option>
-              <option>Portuguese</option>
-              <option>Spanish</option>
-              <option>Greek</option>
-              <option>Russian</option>
-              <option>Japanese</option>
-              <option>Bulgarian</option>
-              <option>Korean</option>
-              <option>Armenian</option>
-              <option>Dutch</option>
-              <option>Urdu</option>
+            <Form.Control
+              as="select"
+              multiple
+              name="languagesToLearn"
+              value={this.state.languagesToLearn}
+              onChange={this.languagesToLearnChanges}
+            >
+              <option value="english">English</option>
+              <option value="german">German</option>
+              <option value="french">French</option>
+              <option value="italian">Italian</option>
+              <option value="arabic">Arabic</option>
+              <option value="mandarin">Mandarin</option>
+              <option value="hindi">Hindi</option>
+              <option value="turkish">Turkish</option>
+              <option value="portuguese">Portuguese</option>
+              <option value="spanish">Spanish</option>
+              <option value="greek">Greek</option>
+              <option value="russian">Russian</option>
+              <option value="japanese">Japanese</option>
+              <option value="bulgarian">Bulgarian</option>
+              <option value="korean">Korean</option>
+              <option value="armenian">Armenian</option>
+              <option value="dutch">Dutch</option>
+              <option value="urdu">Urdu</option>
             </Form.Control>
           </Form.Group>
           {this.state.message && (

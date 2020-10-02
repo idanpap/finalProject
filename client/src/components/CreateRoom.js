@@ -29,7 +29,7 @@ const CreateRoom = (props) => {
 
       {roomNumber ? (
         <button onClick={create} id="goRoom">
-          Create Room
+          Enter Room
         </button>
       ) : (
         <h1> add a room number </h1>
