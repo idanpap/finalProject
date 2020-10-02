@@ -341,12 +341,11 @@ const Room = (props) => {
           autoPlay
           ref={partnerVideo}
         />
-        {/* {screenShare ? (
-          <h2>screen shared</h2>
+        {screenShare ? (
+          <h2></h2>
         ) : (
           <button onClick={shareScreen}>Share screen</button>
-        )} */}
-        <button onClick={shareScreen}>Share screen</button>
+        )}
       </div>
       <div>
         <Container>
