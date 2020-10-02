@@ -156,6 +156,7 @@ const Room = (props) => {
     peerRef.current
       .createOffer()
       .then((offer) => {
+        console.log(offer);
         return peerRef.current.setLocalDescription(offer);
       })
       .then(() => {
@@ -178,11 +179,11 @@ const Room = (props) => {
     const desc = new RTCSessionDescription(incoming.sdp);
     peerRef.current
       .setRemoteDescription(desc)
-      .then(() => {})
       .then(() => {
         return peerRef.current.createAnswer();
       })
       .then((answer) => {
+        console.log(answer);
         return peerRef.current.setLocalDescription(answer);
       })
       .then(() => {
@@ -261,13 +262,36 @@ const Room = (props) => {
     partnerVideo.current.srcObject = e.streams[0];
   }
 
+  // function shareScreen() {
+  //   // setScreenShare(true);
+  //   navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
+  //     const screenTrack = stream.getTracks()[0];
+  //     console.log("screenTrack", screenTrack);
+  //     senders.current
+  //       .find((sender) => sender.track.kind === "video")
+  //       .replaceTrack(screenTrack);
+
+  //     screenTrack.onended = function () {
+  //       senders.current
+  //         .find((sender) => sender.track.kind === "video")
+  //         .replaceTrack(userStream.current.getTracks()[1]);
+  //       // setScreenShare(false);
+  //       // console.log("share true?");
+  //     };
+  //   });
+  // }
+
   function shareScreen() {
-    setScreenShare(true);
+    // setScreenShare(true);
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then((stream) => {
+      console.log(stream.getTracks()[0]);
+      console.log(userStream.current.getTracks()[1]);
+      console.log(senders.current, "CURRENT");
       const screenTrack = stream.getTracks()[0];
       senders.current
         .find((sender) => sender.track.kind === "video")
         .replaceTrack(screenTrack);
+      console.log(senders.current, "CURRENT 2");
 
       screenTrack.onended = function () {
         senders.current
@@ -317,11 +341,12 @@ const Room = (props) => {
           autoPlay
           ref={partnerVideo}
         />
-        {screenShare ? (
+        {/* {screenShare ? (
           <h2>screen shared</h2>
         ) : (
           <button onClick={shareScreen}>Share screen</button>
-        )}
+        )} */}
+        <button onClick={shareScreen}>Share screen</button>
       </div>
       <div>
         <Container>
