@@ -6,6 +6,7 @@ const userSchema = new Schema(
     password: String,
     languagesSpoken: Array,
     languagesToLearn: Array,
+    description: String,
   },
   {
     timestamps: true,
