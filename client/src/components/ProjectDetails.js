@@ -2,24 +2,26 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import EditProject from "./EditProject";
+import Comment from "./Comment";
 
 export default class ProjectDetails extends Component {
-  state = {
-    project: null,
-    error: null,
-    title: "",
-    description: "",
-    editForm: false,
-  };
 
+state = {
+  username: "",
+  languagesSpoke:[],
+  languagesToLearn: [],
+  description: "",
+  error: ""
+}
   getData = () => {
-    const id = this.props.match.params.id;
+    console.log("en details",this.props)
     axios
-      .get(`/api/projects/${id}`)
+      .get(`/api/projects/${this.props}`)
       .then((response) => {
+        console.log("response in details: ",response);
         this.setState({
           project: response.data,
-          title: response.data.title,
+          username: response.data.username,
           description: response.data.description,
         });
       })
@@ -32,17 +34,17 @@ export default class ProjectDetails extends Component {
       });
   };
 
-  deleteProject = () => {
-    const id = this.props.match.params.id;
-    axios
-      .delete(`/api/projects/${id}`)
-      .then(() => {
-        this.props.history.push("/projects");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // deleteProject = () => {
+  //   const id = this.props.match.params.id;
+  //   axios
+  //     .delete(`/api/projects/${id}`)
+  //     .then(() => {
+  //       this.props.history.push("/projects");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -55,7 +57,7 @@ export default class ProjectDetails extends Component {
     event.preventDefault();
     const id = this.props.match.params.id;
     axios
-      .put(`/api/projects/${id}`, {
+      .put(`/projects/${id}`, {
         title: this.state.title,
         description: this.state.description,
       })
@@ -109,7 +111,9 @@ export default class ProjectDetails extends Component {
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
           />
+          
         )}
+        <Comment />
       </div>
     );
   }

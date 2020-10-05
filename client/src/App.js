@@ -13,6 +13,7 @@ import Room from "./components/Room";
 import { Button } from "react-bootstrap";
 
 class App extends Component {
+  
   state = {
     user: this.props.user,
   };
@@ -43,7 +44,9 @@ class App extends Component {
             } else return <Redirect to="/" />;
           }}
         /> */}
+
         <Route
+
           exact
           path="/home"
           render={(props) => {

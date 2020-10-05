@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import LearnersList from "./LearnersList";
-import AddProject from "./AddProject";
+// import LearnersList from "./LearnersList";
+// import AddProject from "./AddProject";
+// import ProjectDetails from "./ProjectDetails";
 
 export default class Projects extends Component {
   state = {
@@ -21,7 +22,6 @@ export default class Projects extends Component {
     axios
       .get("/api/projects")
       .then((response) => {
-        console.log("learnersList", response);
         this.setState({
           learners: response.data,
         });
@@ -37,6 +37,7 @@ export default class Projects extends Component {
   };
 
   render() {
+
     const users = this.state.learners.map((user) => {
       console.log("here in map", user.languagesSpoken, user.description);
       return (
@@ -57,6 +58,7 @@ export default class Projects extends Component {
     return (
       <div className="projects-container">
         {users}
+        {/* <ProjectDetails learners={this.state.learners} /> */}
         {/* <AddProject getData={this.getData} /> */}
         {/* <LearnersList projects={this.state.projects} /> */}
       </div>
