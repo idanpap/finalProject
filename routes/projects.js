@@ -16,8 +16,10 @@ router.get("/", (req, res) => {
 
 // get a specific project
 router.get("/:id", (req, res) => {
+  console.log("here");
   User.findById(req.params.id)
     .then((project) => {
+      console.log("project in projectsJS",project)
       if (!project) {
         res.status(404).json(project);
       } else {

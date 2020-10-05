@@ -12,6 +12,7 @@ import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
 
 class App extends Component {
+  
   state = {
     user: this.props.user,
   };
@@ -33,7 +34,7 @@ class App extends Component {
           component={Projects}
         /> */}
 
-        <Route
+        {/* <Route
           exact
           path="/projects"
           render={(props) => {
@@ -41,13 +42,13 @@ class App extends Component {
               return <Projects {...props} />;
             } else return <Redirect to="/" />;
           }}
-        />
+        /> */}
                 <Route
           exact
           path="/learnersList"
           render={(props) => {
             if (this.state.user) {
-              return <LearnersList {...props} />;
+              return <LearnersList user={this.state.user} {...props} />;
             } else return <Redirect to="/" />;
           }}
         />
