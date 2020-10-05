@@ -34,7 +34,7 @@ class App extends Component {
           component={Projects}
         /> */}
 
-        <Route
+        {/* <Route
           exact
           path="/projects"
           render={(props) => {
@@ -42,24 +42,24 @@ class App extends Component {
               return <Projects {...props} />;
             } else return <Redirect to="/" />;
           }}
-        />
-                <Route
+        /> */}
+        <Route
           exact
-          path="/learnersList"
+          path="/home"
           render={(props) => {
             if (this.state.user) {
-              return <LearnersList {...props} />;
+              return <LearnersList user={this.state.user} {...props} />;
             } else return <Redirect to="/" />;
           }}
         />
 
-        <Route
+        {/* <Route
           exact
           path="/projects/:id"
           render={(props) => (
             <ProjectDetails user={this.state.user} {...props} />
           )}
-        />
+        /> */}
 
         <Route
           exact
@@ -77,7 +77,7 @@ class App extends Component {
           path="/"
           render={(props) => {
             if (this.state.user) {
-              return <CreateRoom {...props} />;
+              return <learnersList {...props} />;
             } else
               return (
                 <div className="not-signed-up">
@@ -104,6 +104,16 @@ class App extends Component {
           }}
         />
         <Route path="/room/:roomID" component={Room} />
+
+        <Route
+          exact
+          path="/room"
+          render={(props) => {
+            if (this.state.user) {
+              return <CreateRoom {...props} />;
+            } else return <Redirect to="/" />;
+          }}
+        />
       </div>
     );
   }
