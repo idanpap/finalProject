@@ -3,6 +3,7 @@ import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Projects from "./components/Projects";
+import LearnersList from "./components/LearnersList";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import ProjectDetails from "./components/ProjectDetails";
@@ -39,6 +40,15 @@ class App extends Component {
           render={(props) => {
             if (this.state.user) {
               return <Projects {...props} />;
+            } else return <Redirect to="/" />;
+          }}
+        />
+                <Route
+          exact
+          path="/learnersList"
+          render={(props) => {
+            if (this.state.user) {
+              return <LearnersList {...props} />;
             } else return <Redirect to="/" />;
           }}
         />

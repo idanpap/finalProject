@@ -23,7 +23,7 @@ export default class Projects extends Component {
     axios
       .get("/api/projects")
       .then((response) => {
-        console.log(response);
+        console.log("response",response);
         this.setState({
           projects: response.data,
         });

@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express();
 const Project = require("../models/Project");
+const User = require("../models/User")
 
 // get all the projects
 router.get("/", (req, res) => {
-  Project.find()
+  User.find()
     .then((projects) => {
       res.status(200).json(projects);
     })
@@ -15,7 +16,7 @@ router.get("/", (req, res) => {
 
 // get a specific project
 router.get("/:id", (req, res) => {
-  Project.findById(req.params.id)
+  User.findById(req.params.id)
     .then((project) => {
       if (!project) {
         res.status(404).json(project);
@@ -30,8 +31,8 @@ router.get("/:id", (req, res) => {
 
 // delete a project
 router.delete("/:id", (req, res) => {
-  Project.findByIdAndDelete(req.params.id)
-    .then((project) => {
+  User.findByIdAndDelete(req.params.id)
+    .then((user) => {
       res.status(200).json({ message: "ok" });
     })
     .catch((error) => {
@@ -42,7 +43,7 @@ router.delete("/:id", (req, res) => {
 // create a new project
 router.post("/", (req, res) => {
   const { title, description } = req.body;
-  Project.create({
+  User.create({
     title,
     description,
     owner: req.user._id,
@@ -58,13 +59,13 @@ router.post("/", (req, res) => {
 // update a project
 router.put("/:id", (req, res) => {
   const { title, description } = req.body;
-  Project.findByIdAndUpdate(
+  User.findByIdAndUpdate(
     req.params.id,
     { title, description },
     { new: true }
   )
-    .then((project) => {
-      res.status(200).json(project);
+    .then((user) => {
+      res.status(200).json(user);
     })
     .catch((error) => {
       res.json(error);
