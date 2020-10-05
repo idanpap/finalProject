@@ -1,20 +1,57 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import axios from "axios";
+import LearnersList from "./LearnersList";
+import AddProject from "./AddProject";
 
-export default function LearnersList(props) {
-  return (
-    <div>
-      {props.learners.length > 0 && <h2>Find your fellow learners:</h2>}
+export default class Projects extends Component {
+  state = {
+    learners: [],
+  };
 
-      {props.learners.map((learner) => {
-        return (
-          <div key={learner._id}>
-            <h3>
-              <Link to={`/leaners/${learner._id}`}>{learner.title}</Link>
-            </h3>
-          </div>
-        );
-      })}
+  componentDidMount() {
+    this.getData();
+  }
+
+  // componentDidUpdate() {
+  //   console.log('update');
+  //   // this.getData();
+  // }
+
+  getData = () => {
+    axios
+      .get("/api/projects")
+      .then((response) => {
+        console.log("learnersList",response);
+        this.setState({
+          learners: response.data,
+        });
+        this.state.learners.forEach(learner => {
+          learner.languagesSpoken.forEach(language => {
+            console.log(language)
+          })
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  };
+
+  render() {
+    const users = this.state.learners.map(user => {
+      console.log("here in map",user.languagesSpoken)
+    return <div>{user.username} 
+    {user.languagesSpoken.map(language => {
+    return <p>Language/s: {language}</p>
+    })}
     </div>
-  );
+    })
+    return (
+      <div className="projects-container">
+        {users}
+        {/* <AddProject getData={this.getData} /> */}
+        {/* <LearnersList projects={this.state.projects} /> */}
+      </div>
+    );
+  }
 }
