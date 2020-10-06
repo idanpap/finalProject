@@ -82,6 +82,7 @@ const Room = (props) => {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [screenShare, setScreenShare] = useState(true);
+  const [topics, setTopics] = useState("");
 
   useEffect(() => {
     navigator.mediaDevices
@@ -105,7 +106,7 @@ const Room = (props) => {
         socketRef.current.on("offer", handleReceiveCall);
 
         socketRef.current.on("offer", handleOffer);
-        //can it be two lines or do I have to do "offer", function 1 & 2?
+
         socketRef.current.on("answer", handleAnswer);
 
         socketRef.current.on("ice-candidate", handleNewICECandidateMsg);
@@ -301,6 +302,13 @@ const Room = (props) => {
     }
   }
 
+  function topicSuggestion() {
+    let chats = ["cats?", "dogs?", "beers?"];
+    let randomNumber = Math.floor(Math.random() * chats.length);
+    setTopics(chats[randomNumber]);
+  }
+  setTimeout(topicSuggestion, 18000);
+
   return (
     <div>
       <div>
@@ -335,6 +343,13 @@ const Room = (props) => {
           <Button onClick={() => handleSendMessage()}>Send</Button>
         </Container>
       </div>
+      <div>
+        <Button onClick={() => topicSuggestion()}>
+          Our topic suggestion for you
+        </Button>
+      </div>
+
+      {topics && <h1>{topics}</h1>}
     </div>
   );
 };

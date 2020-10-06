@@ -9,7 +9,6 @@ export default class Comment extends Component {
     receiver: ""
   }
   handleSubmit = (event) => {
-    console.log("makes sense patients", this.props)
     event.preventDefault();
     axios
       .post("/comments", {
@@ -34,14 +33,17 @@ export default class Comment extends Component {
     });
   };
   render() {
-  console.log(this.props)
+    console.log("props in comment",this.props);
+  const userComment = this.props.comments.map(commentObj => {
+    return <p>{commentObj.comment}</p>
+  })
     return (
       <>
-        <h1>comment</h1>
-        
+        <h1>Comments:</h1>
+      {userComment}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label htmlFor="comment">Get in touch here! </Form.Label>
+            <Form.Label htmlFor="comment"><b>Get in touch here! </b></Form.Label>
             <Form.Control
               type="text"
               name="comment"

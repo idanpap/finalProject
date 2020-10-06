@@ -16,21 +16,26 @@ state = {
   error: ""
 }
   getData = () => {
-    console.log("en details",this.props.match.params.id)
     axios
       .get(`/api/projects/${this.props.match.params.id}`)
       .then((response) => {
         const userComments = response.data.comments.filter(comment => {
-          return this.props.match.params.id === comment.receiver && comment
+          console.log("comment in userComments ",comment);
+          console.log("this.props.user._id",this.props.user._id)
+          console.log("comment.receiver: ",comment.receiver)
+          console.log("comment.sender: ",comment.sender)
+          console.log(this.props.user._id === comment.receiver);
+          console.log(comment.sender === this.props.user._id);
+          return ((this.props.user._id === comment.receiver || comment.sender === this.props.user._id) && this.props.match.params.id === comment.receiver) && comment
         })
-        console.log("userComments here ",userComments)
+        // console.log("userComments here ",userComments)
         this.setState({
           userId: response.data.user._id,
           username: response.data.user.username,
           description: response.data.user.description,
           languagesSpoken: response.data.user.languagesSpoken,
           languagesToLearn: response.data.user.languagesToLearn,
-          comment: userComments
+          comments: userComments
         });
       })
       .catch((error) => {
