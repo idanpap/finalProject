@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "react-bootstrap";
-import EditProject from "./EditProject";
+// import { Button } from "react-bootstrap";
+// import EditProject from "./EditProject";
 import Comment from "./Comment";
 
 export default class ProjectDetails extends Component {
@@ -18,6 +18,7 @@ export default class ProjectDetails extends Component {
     axios
       .get(`/api/projects/${this.props.match.params.id}`)
       .then((response) => {
+
         const userComments = response.data.comments.filter((comment) => {
           console.log("comment in userComments ", comment);
           console.log("this.props.user._id", this.props.user._id);
@@ -33,6 +34,7 @@ export default class ProjectDetails extends Component {
           );
         });
         // console.log("userComments here ",userComments)
+
         this.setState({
           userId: response.data.user._id,
           username: response.data.user.username,
@@ -70,26 +72,26 @@ export default class ProjectDetails extends Component {
     });
   };
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const id = this.props.match.params.id;
-    axios
-      .put(`/projects/${id}`, {
-        title: this.state.title,
-        description: this.state.description,
-      })
-      .then((response) => {
-        this.setState({
-          project: response.data,
-          title: response.data.title,
-          description: response.data.description,
-          editForm: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const id = this.props.match.params.id;
+  //   axios
+  //     .put(`/projects/${id}`, {
+  //       title: this.state.title,
+  //       description: this.state.description,
+  //     })
+  //     .then((response) => {
+  //       this.setState({
+  //         project: response.data,
+  //         title: response.data.title,
+  //         description: response.data.description,
+  //         editForm: false,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   toggleEditForm = () => {
     this.setState((state) => ({
@@ -100,8 +102,8 @@ export default class ProjectDetails extends Component {
   componentDidMount() {
     this.getData();
   }
-
   render() {
+    console.log("project details",this.props);
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
@@ -139,7 +141,9 @@ export default class ProjectDetails extends Component {
           />
           
         )} */}
-        <Comment getData={this.getData} {...this.state} />
+
+        <Comment getData={this.getData} loggedUser={this.props.user} {...this.state}/>
+
       </div>
     );
   }

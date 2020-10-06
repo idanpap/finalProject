@@ -30,7 +30,6 @@ export default class Projects extends Component {
         });
         this.state.learners.forEach((learner) => {
           learner.languagesSpoken.forEach((language) => {
-            console.log(language);
           });
         });
       })
@@ -40,6 +39,7 @@ export default class Projects extends Component {
   };
 
   render() {
+
     const users = this.state.learners
       .filter((data) => {
         if (this.state.search == null) return data;

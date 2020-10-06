@@ -4,21 +4,27 @@ import axios from "axios";
 
 export default class Comment extends Component {
   state = {
-    comment: "",
+    comment:"",
     receiver: "",
-  };
+    receiverUsername: ""
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post("/comments", {
         comment: this.state.comment,
         receiver: this.props.userId,
+
+        receiverUsername: this.props.username
+
       })
       .then(() => {
+        console.log("in comment",this.props);
         this.setState({
           comment: "",
         });
-        // this.props.getData();
+        this.props.getData();
       })
       .catch((error) => {
         console.log(error);
@@ -32,14 +38,22 @@ export default class Comment extends Component {
   };
 
   render() {
-    console.log("props in comment", this.props);
-    const userComment = this.props.comments.map((commentObj) => {
-      return <p>{commentObj.comment}</p>;
-    });
+
+  const userComment = this.props.comments.map(commentObj => {
+    console.log("commentObj in comment",commentObj)
+    return <div>
+      {commentObj.sender === this.props.loggedUser._id ?  <p className="username-comment">You said: </p> : <p className="username-comment">{commentObj.receiverUsername} said: </p>}
+      {commentObj.comment}
+         </div>
+  })
+  console.log(this.props)
     return (
       <>
         <h1>Comments:</h1>
-        {userComment}
+        <div className="comments">
+      {userComment}
+      </div>
+
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="comment">
