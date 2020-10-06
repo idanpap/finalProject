@@ -105,7 +105,7 @@ const Room = (props) => {
         socketRef.current.on("offer", handleReceiveCall);
 
         socketRef.current.on("offer", handleOffer);
-        //can it be two lines or do I have to do "offer", function 1 & 2?
+
         socketRef.current.on("answer", handleAnswer);
 
         socketRef.current.on("ice-candidate", handleNewICECandidateMsg);
@@ -252,7 +252,6 @@ const Room = (props) => {
   }
 
   function sendMessage() {
-    console.log(sendChannel.current);
     sendChannel.current.send(text);
     setMessages((messages) => [...messages, { yours: true, value: text }]);
     setText("");
@@ -306,7 +305,7 @@ const Room = (props) => {
     <div>
       <div>
         <video
-          controls
+          // controls
           style={{ height: 500, width: 500 }}
           autoPlay
           ref={userVideo}

@@ -12,14 +12,14 @@ const handleLogout = (props) => {
 export default function Navbar(props) {
   return (
     <Nav className="nav justify-content-end" bg="primary">
-      {props.user && <Nav.Brand>Welcome {props.user.username} 😺</Nav.Brand>}
-      <Nav.Brand>
+      {props.user && <Nav.Brand>Welcome {props.user.username}</Nav.Brand>}
+      {/* <Nav.Brand>
         <Link to="/">Home</Link>
-      </Nav.Brand>
+      </Nav.Brand> */}
       {props.user ? (
         <>
           <Nav.Brand>
-            <Link to="/LearnersList">LearnersList</Link>
+            <Link to="/home">Learners</Link>
           </Nav.Brand>
           <Nav.Brand>
             <Link to="/" onClick={() => handleLogout(props)}>
