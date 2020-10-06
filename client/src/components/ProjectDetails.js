@@ -103,11 +103,7 @@ export default class ProjectDetails extends Component {
     this.getData();
   }
   render() {
-<<<<<<< HEAD
-    // console.log("project details",this.props);
-=======
-    console.log("project details", this.props);
->>>>>>> 3c8e95dd9d1b6c1edd4e406b343a1c2e5886f9e4
+
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
