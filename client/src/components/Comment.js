@@ -80,6 +80,8 @@ export default class Comment extends Component {
     let allowedToDelete = true;
     const userComment = this.props.comments.map((commentObj) => {
       console.log("commentObj in comment", commentObj);
+      console.log("this.props.loggedUser._id",this.props.loggedUser._id);
+      console.log("commentObj.sender",commentObj.sender)
       return (
         <div>
           {commentObj.senderUsername === this.props.username ?  <p className="username-comment">{commentObj.receiverUsername} said: </p> : <p className="username-comment">{commentObj.senderUsername} said: </p>}
@@ -96,9 +98,11 @@ export default class Comment extends Component {
               </Button>
             )}
           </Form>
+            {this.props.loggedUser._id !== commentObj.sender && 
           <Form onSubmit={this.handleRandomRoom}>
       <Button onClick={this.handleButton} type="submit">Accept invitation</Button> <br />
-      </Form>
+            </Form>  
+            }
         </div>
       );
     });
