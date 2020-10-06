@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express();
-const Project = require("../models/Project");
+const Comments = require("../models/Comments");
 const User = require("../models/User")
 
 // get all the projects
@@ -15,20 +15,10 @@ router.get("/", (req, res) => {
 });
 
 // get a specific project
-router.get("/:id", (req, res) => {
-  console.log("here");
-  User.findById(req.params.id)
-    .then((project) => {
-      console.log("project in projectsJS",project)
-      if (!project) {
-        res.status(404).json(project);
-      } else {
-        res.status(200).json(project);
-      }
-    })
-    .catch((error) => {
-      res.json(error);
-    });
+router.get("/:id", async (req, res) => {
+  let user = await User.findById(req.params.id)
+  let comments = await Comments.find();
+  res.status(200).json({user,comments})
 });
 
 // delete a project

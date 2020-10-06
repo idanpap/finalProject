@@ -3,17 +3,24 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 export default class Comment extends Component {
+
+  state = {
+    comment:"",
+    receiver: ""
+  }
   handleSubmit = (event) => {
+    console.log("makes sense patients", this.props)
     event.preventDefault();
     axios
-      .post("/comment", {
-        description: this.state.description,
+      .post("/comments", {
+        comment: this.state.comment,
+        receiver: this.props.userId 
       })
       .then(() => {
         this.setState({
-          description: ""
+          comment: ""
         });
-        this.props.getData();
+        // this.props.getData();
       })
       .catch((error) => {
         console.log(error);
@@ -23,12 +30,15 @@ export default class Comment extends Component {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
+    
     });
   };
   render() {
+  console.log(this.props)
     return (
       <>
         <h1>comment</h1>
+        
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="comment">Get in touch here! </Form.Label>
@@ -40,7 +50,8 @@ export default class Comment extends Component {
               id="comment"
             />
           </Form.Group>
-  <Button type="submit">Signup</Button>
+  <Button type="submit">Submit comment</Button> <br />
+  <Button disabled>Call</Button>
         </Form>
       </>
     )

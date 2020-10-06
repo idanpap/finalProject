@@ -114,6 +114,9 @@ app.locals.title = "Express - Generated with IronGenerator";
 const index = require("./routes/index");
 app.use("/", index);
 
+const comments = require("./routes/comments");
+app.use("/comments", comments);
+
 const projects = require("./routes/projects");
 app.use("/api/projects", projects);
 

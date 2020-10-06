@@ -38,6 +38,7 @@ export default class Projects extends Component {
 
   render() {
 
+
     const users = this.state.learners.map((user) => {
       console.log("here in map", user.languagesSpoken, user.description);
       return (
@@ -55,6 +56,7 @@ export default class Projects extends Component {
         </div>
       );
     });
+
     return (
       <div className="projects-container">
         {users}
