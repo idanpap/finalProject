@@ -4,7 +4,8 @@ const commentsSchema = new Schema({
   comment: String,
   receiver: String,
   sender: { type: Schema.Types.ObjectId, ref: "User" },
-  receiverUsername: String
+  receiverUsername: String,
+  senderUsername: String
 });
 
 const Comments = mongoose.model('Comments', commentsSchema);

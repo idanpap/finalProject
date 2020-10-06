@@ -7,7 +7,9 @@ export default class Comment extends Component {
   state = {
     comment:"",
     receiver: "",
-    receiverUsername: ""
+    receiverUsername: "",
+    senderUsername: "",
+    showButton: true
   }
   handleSubmit = (event) => {
     event.preventDefault();
@@ -15,10 +17,10 @@ export default class Comment extends Component {
       .post("/comments", {
         comment: this.state.comment,
         receiver: this.props.userId,
-        receiverUsername: this.props.username
+        receiverUsername: this.props.username,
+        senderUsername: this.props.loggedUser.username
       })
       .then(() => {
-        console.log("in comment",this.props);
         this.setState({
           comment: ""
         });
@@ -35,15 +37,46 @@ export default class Comment extends Component {
     
     });
   };
+
+  handleRandomRoom = (event) => {
+    event.preventDefault();
+    axios
+      .post("/comments", {
+        comment: "This is your room number: " + Math.floor(Math.random() * 1000000),
+        receiver: this.props.userId,
+        receiverUsername: this.props.username,
+        senderUsername: this.props.loggedUser.username
+      })
+      .then(() => {
+        this.setState({
+          comment: ""
+        });
+        this.props.getData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  handleButton = (event) => {
+    if (event.target.className == "is-hidden") {
+      event.target.className = "";
+    } else {
+      event.target.className = "is-hidden";
+    }
+
+  }
   render() {
   const userComment = this.props.comments.map(commentObj => {
-    console.log("commentObj in comment",commentObj)
+    // console.log("commentObj.senderUsername",commentObj.senderUsername)
+    // console.log("commentObj.receiverUsername",commentObj.receiverUsername);
     return <div>
-      {commentObj.sender === this.props.loggedUser._id ?  <p className="username-comment">You said: </p> : <p className="username-comment">{commentObj.receiverUsername} said: </p>}
+      {commentObj.senderUsername === this.props.username ?  <p className="username-comment">{commentObj.receiverUsername} said: </p> : <p className="username-comment">{commentObj.senderUsername} said: </p>}
       {commentObj.comment}
+      <Form onSubmit={this.handleRandomRoom}>
+      <Button onClick={this.handleButton} type="submit">Accept invitation</Button> <br />
+      </Form>
          </div>
   })
-  console.log(this.props)
     return (
       <>
         <h1>Comments:</h1>
@@ -52,7 +85,7 @@ export default class Comment extends Component {
       </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label htmlFor="comment"><b>Get in touch here! </b></Form.Label>
+            <Form.Label htmlFor="comment"><b>Schedule a videocall! </b></Form.Label>
             <Form.Control
               type="text"
               name="comment"
@@ -62,7 +95,6 @@ export default class Comment extends Component {
             />
           </Form.Group>
   <Button type="submit">Submit comment</Button> <br />
-  <Button disabled>Call</Button>
         </Form>
       </>
     )
