@@ -7,22 +7,30 @@ import Comment from "./Comment";
 export default class ProjectDetails extends Component {
 
 state = {
+  userId: "",
   username: "",
-  languagesSpoke:[],
+  languagesSpoken:[],
   languagesToLearn: [],
   description: "",
+  comments: [],
   error: ""
 }
   getData = () => {
-    console.log("en details",this.props)
+    console.log("en details",this.props.match.params.id)
     axios
-      .get(`/api/projects/${this.props}`)
+      .get(`/api/projects/${this.props.match.params.id}`)
       .then((response) => {
-        console.log("response in details: ",response);
+        const userComments = response.data.comments.filter(comment => {
+          return this.props.match.params.id === comment.receiver && comment
+        })
+        console.log("userComments here ",userComments)
         this.setState({
-          project: response.data,
-          username: response.data.username,
-          description: response.data.description,
+          userId: response.data.user._id,
+          username: response.data.user.username,
+          description: response.data.user.description,
+          languagesSpoken: response.data.user.languagesSpoken,
+          languagesToLearn: response.data.user.languagesToLearn,
+          comment: userComments
         });
       })
       .catch((error) => {
@@ -85,26 +93,35 @@ state = {
   }
 
   render() {
-    if (this.state.error) return <div>{this.state.error}</div>;
-    if (!this.state.project) return <p>Loading ...</p>;
+    // if (this.state.error) return <div>{this.state.error}</div>;
+    // if (!this.state.project) return <p>Loading ...</p>;
 
-    let allowedToDelete = false;
-    const user = this.props.user;
-    const owner = this.state.project.owner;
-    if (user && user._id === owner) allowedToDelete = true;
-
+    // let allowedToDelete = false;
+    // const user = this.props.user;
+    // const owner = this.state.project.owner;
+    // if (user && user._id === owner) allowedToDelete = true;
+    const languagesToLearn = this.state.languagesToLearn.map(language => {
+      return <p>{language}</p>
+    })
+    const languagesSpoken = this.state.languagesSpoken.map(language => {
+      return <p>{language}</p>
+    })
     return (
       <div>
-        <h1>{this.state.project.title}</h1>
-        <p>{this.state.project.description}</p>
+        <h1>{this.state.username}</h1>
+        <p>{this.state.description}</p>
+        <h3>Wants to learn</h3>
+        {languagesToLearn}
+        <h3>Can speak</h3>
+        {languagesSpoken}
 
-        {allowedToDelete && (
+        {/* {allowedToDelete && (
           <Button variant="danger" onClick={this.deleteProject}>
             Delete Project
           </Button>
-        )}
+        )} */}
 
-        <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
+        {/* <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
           <EditProject
             {...this.state}
@@ -112,8 +129,8 @@ state = {
             handleSubmit={this.handleSubmit}
           />
           
-        )}
-        <Comment />
+        )} */}
+        <Comment getData={this.getData} {...this.state}/>
       </div>
     );
   }

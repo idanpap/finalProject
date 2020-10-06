@@ -34,9 +34,8 @@ export default class Projects extends Component {
 
   render() {
     const users = this.state.learners.map(user => {
-      console.log("in learnersList",user)
     return <div>
-      <a href={`/api/projects/${user._id}`}>
+      <a href={`/projects/${user._id}`}>
       {user.username} 
       </a>
     {user.languagesSpoken.map(language => {
