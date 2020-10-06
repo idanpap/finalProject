@@ -55,7 +55,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/projects/:id"
+          path="/users/:id"
           render={(props) => (
             <ProjectDetails user={this.state.user} {...props} />
           )}

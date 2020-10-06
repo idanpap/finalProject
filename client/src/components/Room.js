@@ -348,8 +348,7 @@ const Room = (props) => {
           Our topic suggestion for you
         </Button>
       </div>
-
-      {topics && <h1>{topics}</h1>}
+      {topics && <h1>{topics}</h1>}{" "}
     </div>
   );
 };

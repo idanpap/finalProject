@@ -32,7 +32,7 @@ const CreateRoom = (props) => {
           Enter Room
         </button>
       ) : (
-        <h1> add a room number </h1>
+        <h1> Add a room number </h1>
       )}
     </div>
   );

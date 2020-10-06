@@ -60,7 +60,7 @@ export default class Projects extends Component {
       .map((user) => {
         return (
           <div>
-            <a href={`/projects/${user._id}`}>{user.username}</a> <br></br>
+            <a href={`/users/${user._id}`}>{user.username}</a> <br></br>
             <b>{user.description}</b>
             <p>I speak </p>
             {user.languagesSpoken.map((spokenLanguage) => {
