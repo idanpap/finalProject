@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 // import EditProject from "./EditProject";
 import Comment from "./Comment";
+import CreateRoom from "./CreateRoom";
 
 export default class ProjectDetails extends Component {
   state = {
@@ -140,6 +141,7 @@ export default class ProjectDetails extends Component {
           />
           
         )} */}
+        <CreateRoom />
       </div>
     );
   }

@@ -100,9 +100,9 @@ export default class Comment extends Component {
             />
           </Form.Group>
           <Button type="submit">Submit comment</Button> <br />
-          <a href="/room">
+          {/* <a href="/room">
             <Button disabled>Call</Button>
-          </a>
+          </a> */}
         </Form>
       </>
     );
