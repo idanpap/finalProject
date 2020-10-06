@@ -37,13 +37,11 @@ export default class Projects extends Component {
   };
 
   render() {
-
-
     const users = this.state.learners.map((user) => {
       console.log("here in map", user.languagesSpoken, user.description);
       return (
         <div>
-          {user.username} <br></br>
+          <a href={`/projects/${user._id}`}>{user.username}</a> <br></br>
           <b>{user.description}</b>
           <p>I speak </p>
           {user.languagesSpoken.map((spokenLanguage) => {

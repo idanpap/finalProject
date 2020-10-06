@@ -13,7 +13,6 @@ import Room from "./components/Room";
 import { Button } from "react-bootstrap";
 
 class App extends Component {
-  
   state = {
     user: this.props.user,
   };
@@ -46,7 +45,6 @@ class App extends Component {
         /> */}
 
         <Route
-
           exact
           path="/home"
           render={(props) => {
@@ -56,13 +54,13 @@ class App extends Component {
           }}
         />
 
-        {/* <Route
+        <Route
           exact
           path="/projects/:id"
           render={(props) => (
             <ProjectDetails user={this.state.user} {...props} />
           )}
-        /> */}
+        />
 
         <Route
           exact
