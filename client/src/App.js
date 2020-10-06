@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
+// , Switch, BrowserRouter
+import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Projects from "./components/Projects";
+// import Projects from "./components/Projects";
 import LearnersList from "./components/LearnersList";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -56,13 +57,13 @@ class App extends Component {
           }}
         />
 
-        {/* <Route
+        <Route
           exact
           path="/projects/:id"
           render={(props) => (
             <ProjectDetails user={this.state.user} {...props} />
           )}
-        /> */}
+        />
 
         <Route
           exact
