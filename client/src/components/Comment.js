@@ -30,6 +30,7 @@ export default class Comment extends Component {
       [name]: value,
     });
   };
+
   render() {
     console.log("props in comment", this.props);
     const userComment = this.props.comments.map((commentObj) => {

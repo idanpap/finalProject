@@ -303,11 +303,20 @@ const Room = (props) => {
   }
 
   function topicSuggestion() {
-    let chats = ["cats?", "dogs?", "beers?"];
+    let chats = [
+      "Where did you grow up?",
+      "What do you think about the elections in America?",
+      "What's your favourite meal?",
+      "Tell me about your family",
+      "Do you think climate change is real?",
+      "Are you interested in blockchain?",
+      "Your favourite childhood memory",
+      "Your job",
+    ];
     let randomNumber = Math.floor(Math.random() * chats.length);
     setTopics(chats[randomNumber]);
   }
-  setTimeout(topicSuggestion, 18000);
+  setTimeout(topicSuggestion, 20000);
 
   return (
     <div>
@@ -345,7 +354,8 @@ const Room = (props) => {
       </div>
       <div>
         <Button onClick={() => topicSuggestion()}>
-          Our topic suggestion for you
+          <p>Don't know what to talk about?</p>
+          <p>Here are our suggestions</p>
         </Button>
       </div>
       {topics && <h1>{topics}</h1>}{" "}

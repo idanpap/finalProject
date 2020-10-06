@@ -76,14 +76,13 @@ export default class Projects extends Component {
     return (
       <div>
         <Form.Group>
-          <Form.Label htmlFor="search">
-            Enter username or language you want to learn:{" "}
-          </Form.Label>
+          <Form.Label htmlFor="search"> </Form.Label>
           <Form.Control
             type="text"
             name="search"
             onChange={(e) => this.searchSpace(e)}
             id="search"
+            placeholder="Enter the language you want to learn or the user you want to talk to"
           />
         </Form.Group>
         {users}
