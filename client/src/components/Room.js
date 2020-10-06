@@ -82,6 +82,7 @@ const Room = (props) => {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
   const [screenShare, setScreenShare] = useState(true);
+  const [topics, setTopics] = useState("");
 
   useEffect(() => {
     navigator.mediaDevices
@@ -301,6 +302,22 @@ const Room = (props) => {
     }
   }
 
+  function topicSuggestion() {
+    let chats = [
+      "Where did you grow up?",
+      "What do you think about the elections in America?",
+      "What's your favourite meal?",
+      "Tell me about your family",
+      "Do you think climate change is real?",
+      "Are you interested in blockchain?",
+      "Your favourite childhood memory",
+      "Your job",
+    ];
+    let randomNumber = Math.floor(Math.random() * chats.length);
+    setTopics(chats[randomNumber]);
+  }
+  setTimeout(topicSuggestion, 20000);
+
   return (
     <div>
       <div>
@@ -335,6 +352,13 @@ const Room = (props) => {
           <Button onClick={() => handleSendMessage()}>Send</Button>
         </Container>
       </div>
+      <div>
+        <Button onClick={() => topicSuggestion()}>
+          <p>Don't know what to talk about?</p>
+          <p>Here are our suggestions</p>
+        </Button>
+      </div>
+      {topics && <h1>{topics}</h1>}{" "}
     </div>
   );
 };
