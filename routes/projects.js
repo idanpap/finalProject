@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express();
 const Comments = require("../models/Comments");
-const User = require("../models/User")
+const User = require("../models/User");
 
 // get all the projects
 router.get("/", (req, res) => {
@@ -16,15 +16,17 @@ router.get("/", (req, res) => {
 
 // get a specific project
 router.get("/:id", async (req, res) => {
-  let user = await User.findById(req.params.id)
+  let user = await User.findById(req.params.id);
   let comments = await Comments.find();
-  res.status(200).json({user,comments})
+  res.status(200).json({ user, comments });
 });
 
 // delete a project
 router.delete("/:id", (req, res) => {
+  console.log("hello from the back end?");
   User.findByIdAndDelete(req.params.id)
     .then((user) => {
+      console.log(user);
       res.status(200).json({ message: "ok" });
     })
     .catch((error) => {
@@ -51,11 +53,7 @@ router.post("/", (req, res) => {
 // update a project
 router.put("/:id", (req, res) => {
   const { title, description } = req.body;
-  User.findByIdAndUpdate(
-    req.params.id,
-    { title, description },
-    { new: true }
-  )
+  User.findByIdAndUpdate(req.params.id, { title, description }, { new: true })
     .then((user) => {
       res.status(200).json(user);
     })
