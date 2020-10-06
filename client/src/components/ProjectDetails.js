@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 // import EditProject from "./EditProject";
 import Comment from "./Comment";
 
@@ -13,12 +13,12 @@ export default class ProjectDetails extends Component {
     description: "",
     comments: [],
     error: "",
+    allowedToDelete: false,
   };
   getData = () => {
     axios
       .get(`/api/projects/${this.props.match.params.id}`)
       .then((response) => {
-
         const userComments = response.data.comments.filter((comment) => {
           console.log("comment in userComments ", comment);
           console.log("this.props.user._id", this.props.user._id);
@@ -56,9 +56,9 @@ export default class ProjectDetails extends Component {
   // deleteProject = () => {
   //   const id = this.props.match.params.id;
   //   axios
-  //     .delete(`/api/projects/${id}`)
+  //     .delete(`/api/projects/${id}.comment`)
   //     .then(() => {
-  //       this.props.history.push("/projects");
+  //       this.props.history.push("/home");
   //     })
   //     .catch((error) => {
   //       console.log(error);
@@ -103,12 +103,12 @@ export default class ProjectDetails extends Component {
     this.getData();
   }
   render() {
-    console.log("project details",this.props);
+    console.log("project details", this.props);
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
-    // let allowedToDelete = false;
-    // const user = this.props.user;
+    let allowedToDelete = true;
+    const user = this.props.user;
     // const owner = this.state.project.owner;
     // if (user && user._id === owner) allowedToDelete = true;
     const languagesToLearn = this.state.languagesToLearn.map((language) => {
@@ -126,12 +126,11 @@ export default class ProjectDetails extends Component {
         <h3>Can speak</h3>
         {languagesSpoken}
 
-        {/* {allowedToDelete && (
-          <Button variant="danger" onClick={this.deleteProject}>
-            Delete Project
-          </Button>
-        )} */}
-
+        <Comment
+          getData={this.getData}
+          loggedUser={this.props.user}
+          {...this.state}
+        />
         {/* <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
           <EditProject
@@ -141,9 +140,6 @@ export default class ProjectDetails extends Component {
           />
           
         )} */}
-
-        <Comment getData={this.getData} loggedUser={this.props.user} {...this.state}/>
-
       </div>
     );
   }
