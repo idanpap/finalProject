@@ -105,7 +105,7 @@ const Room = (props) => {
         socketRef.current.on("offer", handleReceiveCall);
 
         socketRef.current.on("offer", handleOffer);
-        //can it be two lines or do I have to do "offer", function 1 & 2?
+
         socketRef.current.on("answer", handleAnswer);
 
         socketRef.current.on("ice-candidate", handleNewICECandidateMsg);
