@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
-
 export default class Comment extends Component {
   state = {
     comment: "",
@@ -11,7 +10,6 @@ export default class Comment extends Component {
     showButton: true,
     allowedToDelete: false,
   };
-
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -39,22 +37,23 @@ export default class Comment extends Component {
       [name]: value,
     });
   };
-
   handleRandomRoom = (event) => {
     event.preventDefault();
     axios
       .post("/comments", {
-        comment: "This is your room number: " + Math.floor(Math.random() * 1000000),
+        comment:
+          "This is your room number: " + Math.floor(Math.random() * 1000000),
         receiver: this.props.userId,
         receiverUsername: this.props.username,
-        senderUsername: this.props.loggedUser.username
+        senderUsername: this.props.loggedUser.username,
       })
       .then(() => {
         this.setState({
-          comment: ""
+          comment: "",
         });
-        this.props.getData()
-      })}
+        this.props.getData();
+      });
+  };
   decline = (commentObj) => {
     // const id = this.props;
     console.log(`find the comment`, commentObj);
@@ -74,8 +73,7 @@ export default class Comment extends Component {
     } else {
       event.target.className = "is-hidden";
     }
-
-  }
+  };
   render() {
     let allowedToDelete = true;
     const userComment = this.props.comments.map((commentObj) => {
@@ -97,6 +95,7 @@ export default class Comment extends Component {
             )}
           </Form>
           <Form onSubmit={this.handleRandomRoom}>
+
       <Button onClick={this.handleButton} type="submit">Accept invitation</Button> <br />
       </Form>
         </div>
@@ -121,7 +120,9 @@ export default class Comment extends Component {
               id="comment"
             />
           </Form.Group>
-  <Button type="submit">Submit comment</Button> <br />
+
+          <Button type="submit">Submit comment</Button> <br />
+
         </Form>
       </>
     );
