@@ -82,13 +82,7 @@ export default class Comment extends Component {
       console.log("commentObj in comment", commentObj);
       return (
         <div>
-          {commentObj.sender === this.props.loggedUser._id ? (
-            <p className="username-comment">You said: </p>
-          ) : (
-            <p className="username-comment">
-              {commentObj.receiverUsername} said:{" "}
-            </p>
-          )}
+          {commentObj.senderUsername === this.props.username ?  <p className="username-comment">{commentObj.receiverUsername} said: </p> : <p className="username-comment">{commentObj.senderUsername} said: </p>}
           {commentObj.comment}
           <Form>
             {allowedToDelete && (
