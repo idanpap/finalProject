@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import { Route, Redirect, Switch, BrowserRouter } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import Projects from "./components/Projects";
 import LearnersList from "./components/LearnersList";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import ProjectDetails from "./components/ProjectDetails";
 import Navbar from "./components/Navbar";
 import CreateRoom from "./components/CreateRoom";
 import Room from "./components/Room";
 import { Button } from "react-bootstrap";
+import ProjectDetails from "./components/ProjectDetails";
 
 class App extends Component {
   state = {
@@ -85,12 +84,12 @@ class App extends Component {
                   <h1>Welcome to the DaNaKe</h1>
                   <p>
                     Here at DaNaKe, we care about learning languages. A passion
-                    for education, coupled with new normal of COVID, which means
-                    we can't travel as much as normal, motivated us to make our
-                    groundbreaking language learning platform available to the
-                    public. Connect with normal people from all over the world
-                    and learn the language of your choosing, whilst
-                    simultaneously sharing your own culture.
+                    for education, coupled with the new normal imposed by COVID,
+                    which means we can't travel as much as normal, motivated us
+                    to make our groundbreaking language learning platform
+                    available to the public. Connect with normal people from all
+                    over the world and learn the language of your choosing,
+                    whilst simultaneously sharing your own culture.
                   </p>
                   <p>
                     <em>We are DaNaKe, we are community</em>
