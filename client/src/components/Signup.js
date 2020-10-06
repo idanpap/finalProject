@@ -122,7 +122,7 @@ export default class Signup extends Component {
               value={this.state.languagesSpoken}
               onChange={this.spokenLanguageChanges}
             >
-              <option value="🇬🇧 English">🇬🇧 English</option>
+              <option value="🇬🇧 English"> 🇬🇧 English</option>
               <option value="🇩🇪 German">🇩🇪 German</option>
               <option value="🇫🇷 French">🇫🇷 French</option>
               <option value="🇮🇪 Italian">🇮🇪 Italian</option>

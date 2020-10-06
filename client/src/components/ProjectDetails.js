@@ -1,34 +1,47 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 // import EditProject from "./EditProject";
 import Comment from "./Comment";
 
 export default class ProjectDetails extends Component {
-
-state = {
-  userId: "",
-  username: "",
-  languagesSpoken:[],
-  languagesToLearn: [],
-  description: "",
-  comments: [],
-  error: ""
-}
+  state = {
+    userId: "",
+    username: "",
+    languagesSpoken: [],
+    languagesToLearn: [],
+    description: "",
+    comments: [],
+    error: "",
+    allowedToDelete: false,
+  };
   getData = () => {
     axios
       .get(`/api/projects/${this.props.match.params.id}`)
       .then((response) => {
-        const userComments = response.data.comments.filter(comment => {
-          return ((this.props.user._id === comment.receiver || comment.sender === this.props.user._id) && this.props.match.params.id === comment.receiver) && comment
-        })
+        const userComments = response.data.comments.filter((comment) => {
+          console.log("comment in userComments ", comment);
+          console.log("this.props.user._id", this.props.user._id);
+          console.log("comment.receiver: ", comment.receiver);
+          console.log("comment.sender: ", comment.sender);
+          console.log(this.props.user._id === comment.receiver);
+          console.log(comment.sender === this.props.user._id);
+          return (
+            (this.props.user._id === comment.receiver ||
+              comment.sender === this.props.user._id) &&
+            this.props.match.params.id === comment.receiver &&
+            comment
+          );
+        });
+        // console.log("userComments here ",userComments)
+
         this.setState({
           userId: response.data.user._id,
           username: response.data.user.username,
           description: response.data.user.description,
           languagesSpoken: response.data.user.languagesSpoken,
           languagesToLearn: response.data.user.languagesToLearn,
-          comments: userComments
+          comments: userComments,
         });
       })
       .catch((error) => {
@@ -43,9 +56,9 @@ state = {
   // deleteProject = () => {
   //   const id = this.props.match.params.id;
   //   axios
-  //     .delete(`/api/projects/${id}`)
+  //     .delete(`/api/projects/${id}.comment`)
   //     .then(() => {
-  //       this.props.history.push("/projects");
+  //       this.props.history.push("/home");
   //     })
   //     .catch((error) => {
   //       console.log(error);
@@ -90,20 +103,24 @@ state = {
     this.getData();
   }
   render() {
+<<<<<<< HEAD
     // console.log("project details",this.props);
+=======
+    console.log("project details", this.props);
+>>>>>>> 3c8e95dd9d1b6c1edd4e406b343a1c2e5886f9e4
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
-    // let allowedToDelete = false;
-    // const user = this.props.user;
+    let allowedToDelete = true;
+    const user = this.props.user;
     // const owner = this.state.project.owner;
     // if (user && user._id === owner) allowedToDelete = true;
-    const languagesToLearn = this.state.languagesToLearn.map(language => {
-      return <p>{language}</p>
-    })
-    const languagesSpoken = this.state.languagesSpoken.map(language => {
-      return <p>{language}</p>
-    })
+    const languagesToLearn = this.state.languagesToLearn.map((language) => {
+      return <p>{language}</p>;
+    });
+    const languagesSpoken = this.state.languagesSpoken.map((language) => {
+      return <p>{language}</p>;
+    });
     return (
       <div>
         <h1>{this.state.username}</h1>
@@ -113,12 +130,11 @@ state = {
         <h3>Can speak</h3>
         {languagesSpoken}
 
-        {/* {allowedToDelete && (
-          <Button variant="danger" onClick={this.deleteProject}>
-            Delete Project
-          </Button>
-        )} */}
-
+        <Comment
+          getData={this.getData}
+          loggedUser={this.props.user}
+          {...this.state}
+        />
         {/* <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
           <EditProject
@@ -128,7 +144,6 @@ state = {
           />
           
         )} */}
-        <Comment getData={this.getData} loggedUser={this.props.user} {...this.state}/>
       </div>
     );
   }
