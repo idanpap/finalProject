@@ -104,7 +104,7 @@ export default class ProjectDetails extends Component {
     this.getData();
   }
   render() {
-    // console.log("project details",this.props);
+
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
