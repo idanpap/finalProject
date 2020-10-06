@@ -63,6 +63,13 @@ class App extends Component {
           )}
         />
 
+        {/* <Route
+          exact
+          path="/room/:id"
+          render={(props) => <CreateRoom user={this.state.user} {...props} />}
+        /> */}
+        <Route path="/room/:roomID" component={Room} />
+
         <Route
           exact
           path="/signup"
@@ -105,7 +112,6 @@ class App extends Component {
               );
           }}
         />
-        <Route path="/room/:roomID" component={Room} />
 
         <Route
           exact
