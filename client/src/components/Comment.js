@@ -1,26 +1,25 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
-
 export default class Comment extends Component {
   state = {
     comment: "",
     receiver: "",
     receiverUsername: "",
+    senderUsername: "",
+    showButton: true,
     allowedToDelete: false,
   };
-
   handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post("/comments", {
         comment: this.state.comment,
         receiver: this.props.userId,
-
         receiverUsername: this.props.username,
+        senderUsername: this.props.loggedUser.username,
       })
       .then(() => {
-        console.log("in comment", this.props);
         this.setState({
           comment: "",
         });
@@ -36,6 +35,23 @@ export default class Comment extends Component {
       [name]: value,
     });
   };
+  handleRandomRoom = (event) => {
+    event.preventDefault();
+    axios
+      .post("/comments", {
+        comment:
+          "This is your room number: " + Math.floor(Math.random() * 1000000),
+        receiver: this.props.userId,
+        receiverUsername: this.props.username,
+        senderUsername: this.props.loggedUser.username,
+      })
+      .then(() => {
+        this.setState({
+          comment: "",
+        });
+        this.props.getData();
+      });
+  };
   decline = (commentObj) => {
     // const id = this.props;
     console.log(`find the comment`, commentObj);
@@ -48,12 +64,15 @@ export default class Comment extends Component {
         console.log(error);
       });
   };
-
+  handleButton = (event) => {
+    if (event.target.className == "is-hidden") {
+      event.target.className = "";
+    } else {
+      event.target.className = "is-hidden";
+    }
+  };
   render() {
-    console.log(this.props);
     let allowedToDelete = true;
-    const user = this.props.user;
-
     const userComment = this.props.comments.map((commentObj) => {
       console.log("commentObj in comment", commentObj);
       return (
@@ -78,10 +97,15 @@ export default class Comment extends Component {
               </Button>
             )}
           </Form>
+          <Form onSubmit={this.handleRandomRoom}>
+            <Button onClick={this.handleButton} type="submit">
+              Accept invitation
+            </Button>{" "}
+            <br />
+          </Form>
         </div>
       );
     });
-
     return (
       <>
         <h1>Comments:</h1>
@@ -100,9 +124,6 @@ export default class Comment extends Component {
             />
           </Form.Group>
           <Button type="submit">Submit comment</Button> <br />
-          {/* <a href="/room">
-            <Button disabled>Call</Button>
-          </a> */}
         </Form>
       </>
     );

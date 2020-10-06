@@ -104,7 +104,7 @@ export default class ProjectDetails extends Component {
     this.getData();
   }
   render() {
-    console.log("project details", this.props);
+    // console.log("project details",this.props);
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
@@ -132,6 +132,7 @@ export default class ProjectDetails extends Component {
           loggedUser={this.props.user}
           {...this.state}
         />
+        <CreateRoom loggedUser={this.props.user} {...this.state} />
         {/* <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
           <EditProject
