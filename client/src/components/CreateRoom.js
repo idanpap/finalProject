@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 
 const CreateRoom = (props) => {
   const [roomNumber, setRoomNumber] = useState();
@@ -7,9 +8,8 @@ const CreateRoom = (props) => {
 
   function create() {
     const id = roomNumber;
-    console.log(id);
+
     props.history.push(`/room/${id}`);
-    // props.history.push(`/room/${id}`);
   }
 
   function onEnteringChar(event) {
@@ -37,4 +37,5 @@ const CreateRoom = (props) => {
     </div>
   );
 };
-export default CreateRoom;
+// export default CreateRoom;
+export default withRouter(CreateRoom);
