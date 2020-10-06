@@ -4,22 +4,14 @@ const User = require("../models/User");
 const Comment = require("../models/Comments");
 
 router.post("/", (req, res) => {
-<<<<<<< HEAD
-  const { comment, receiver, receiverUsername,senderUsername } = req.body;
+  const { comment, receiver, receiverUsername, senderUsername } = req.body;
 
-=======
-  const { comment, receiver, receiverUsername } = req.body;
-  console.log("receiverUsername", receiverUsername);
->>>>>>> 3c8e95dd9d1b6c1edd4e406b343a1c2e5886f9e4
   Comment.create({
     comment,
     sender: req.user._id,
     receiver,
     receiverUsername,
-<<<<<<< HEAD
-    senderUsername
-=======
->>>>>>> 3c8e95dd9d1b6c1edd4e406b343a1c2e5886f9e4
+    senderUsername,
   })
     .then((comment) => {
       res.status(201).json(comment);

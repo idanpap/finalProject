@@ -3,6 +3,7 @@ import axios from "axios";
 import { Button } from "react-bootstrap";
 // import EditProject from "./EditProject";
 import Comment from "./Comment";
+import CreateRoom from "./CreateRoom";
 
 export default class ProjectDetails extends Component {
   state = {
@@ -103,11 +104,7 @@ export default class ProjectDetails extends Component {
     this.getData();
   }
   render() {
-<<<<<<< HEAD
     // console.log("project details",this.props);
-=======
-    console.log("project details", this.props);
->>>>>>> 3c8e95dd9d1b6c1edd4e406b343a1c2e5886f9e4
     // if (this.state.error) return <div>{this.state.error}</div>;
     // if (!this.state.project) return <p>Loading ...</p>;
 
@@ -135,6 +132,7 @@ export default class ProjectDetails extends Component {
           loggedUser={this.props.user}
           {...this.state}
         />
+        <CreateRoom loggedUser={this.props.user} {...this.state} />
         {/* <Button onClick={this.toggleEditForm}>Show Edit Form</Button>
         {this.state.editForm && (
           <EditProject
@@ -144,6 +142,7 @@ export default class ProjectDetails extends Component {
           />
           
         )} */}
+        <CreateRoom />
       </div>
     );
   }
