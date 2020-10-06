@@ -9,6 +9,7 @@ export default class Signup extends Component {
     message: "",
     languagesSpoken: [],
     languagesToLearn: [],
+    description: "",
   };
 
   handleChange = (event) => {
@@ -58,26 +59,32 @@ export default class Signup extends Component {
       password,
       languagesSpoken,
       languagesToLearn,
+      description,
     } = this.state;
-    signup(username, password, languagesSpoken, languagesToLearn).then(
-      (data) => {
-        console.log(data);
-        if (data.message) {
-          this.setState({
-            message: data.message,
-            username: username,
-            password: "",
-            languagesSpoken: languagesSpoken,
-            languagesToLearn: languagesToLearn,
-          });
-        } else {
-          // now we need to put the user in the user key of the state of App.js
-          this.props.setUser(data);
-          // redirect to /projects
-          this.props.history.push("/");
-        }
+    signup(
+      username,
+      password,
+      languagesSpoken,
+      languagesToLearn,
+      description
+    ).then((data) => {
+      console.log(data);
+      if (data.message) {
+        this.setState({
+          message: data.message,
+          username: username,
+          password: "",
+          languagesSpoken: languagesSpoken,
+          languagesToLearn: languagesToLearn,
+          description: description,
+        });
+      } else {
+        // now we need to put the user in the user key of the state of App.js
+        this.props.setUser(data);
+        // redirect to /projects
+        this.props.history.push("/home");
       }
-    );
+    });
     console.log(this.state);
   };
 
@@ -115,24 +122,24 @@ export default class Signup extends Component {
               value={this.state.languagesSpoken}
               onChange={this.spokenLanguageChanges}
             >
-              <option value="english">English</option>
-              <option value="german">German</option>
-              <option value="french">French</option>
-              <option value="italian">Italian</option>
-              <option value="arabic">Arabic</option>
-              <option value="mandarin">Mandarin</option>
-              <option value="hindi">Hindi</option>
-              <option value="turkish">Turkish</option>
-              <option value="portuguese">Portuguese</option>
-              <option value="spanish">Spanish</option>
-              <option value="greek">Greek</option>
-              <option value="russian">Russian</option>
-              <option value="japanese">Japanese</option>
-              <option value="bulgarian">Bulgarian</option>
-              <option value="korean">Korean</option>
-              <option value="armenian">Armenian</option>
-              <option value="dutch">Dutch</option>
-              <option value="urdu">Urdu</option>
+              <option value="🇬🇧 English">🇬🇧 English</option>
+              <option value="🇩🇪 German">🇩🇪 German</option>
+              <option value="🇫🇷 French">🇫🇷 French</option>
+              <option value="🇮🇪 Italian">🇮🇪 Italian</option>
+              <option value="🇦🇪 Arabic">🇦🇪 Arabic</option>
+              <option value="🇨🇳 Mandarin">🇨🇳 Mandarin</option>
+              <option value="🇮🇳 Hindi">🇮🇳 Hindi </option>
+              <option value="🇹🇷 Turkish">🇹🇷 Turkish</option>
+              <option value="🇵🇹 Portuguese">🇵🇹 Portuguese</option>
+              <option value="🇪🇸 Spanish">🇪🇸 Spanish</option>
+              <option value="🇬🇷 Greek">🇬🇷 Greek</option>
+              <option value="🇷🇺 Russian">🇷🇺 Russian</option>
+              <option value="🇯🇵 Japanese">🇯🇵 Japanese</option>
+              <option value="🇧🇬 Bulgarian">🇧🇬 Bulgarian</option>
+              <option value="🇰🇷 Korean">🇰🇷 Korean</option>
+              <option value="🇦🇲 Armenian">🇦🇲 Armenian</option>
+              <option value="🇱🇺 Dutch">🇱🇺 Dutch</option>
+              <option value="🇵🇰 Urdu">🇵🇰 Urdu</option>
             </Form.Control>
           </Form.Group>
           <Form.Group>
@@ -144,30 +151,42 @@ export default class Signup extends Component {
               value={this.state.languagesToLearn}
               onChange={this.languagesToLearnChanges}
             >
-              <option value="english">English</option>
-              <option value="german">German</option>
-              <option value="french">French</option>
-              <option value="italian">Italian</option>
-              <option value="arabic">Arabic</option>
-              <option value="mandarin">Mandarin</option>
-              <option value="hindi">Hindi</option>
-              <option value="turkish">Turkish</option>
-              <option value="portuguese">Portuguese</option>
-              <option value="spanish">Spanish</option>
-              <option value="greek">Greek</option>
-              <option value="russian">Russian</option>
-              <option value="japanese">Japanese</option>
-              <option value="bulgarian">Bulgarian</option>
-              <option value="korean">Korean</option>
-              <option value="armenian">Armenian</option>
-              <option value="dutch">Dutch</option>
-              <option value="urdu">Urdu</option>
+              <option value="🇬🇧 English">🇬🇧 English</option>
+              <option value="🇩🇪 German">🇩🇪 German</option>
+              <option value="🇫🇷 French">🇫🇷 French</option>
+              <option value="🇮🇪 Italian">🇮🇪 Italian</option>
+              <option value="🇦🇪 Arabic">🇦🇪 Arabic</option>
+              <option value="🇨🇳 Mandarin">🇨🇳 Mandarin</option>
+              <option value="🇮🇳 Hindi">🇮🇳 Hindi </option>
+              <option value="🇹🇷 Turkish">🇹🇷 Turkish</option>
+              <option value="🇵🇹 Portuguese">🇵🇹 Portuguese</option>
+              <option value="🇪🇸 Spanish">🇪🇸 Spanish</option>
+              <option value="🇬🇷 Greek">🇬🇷 Greek</option>
+              <option value="🇷🇺 Russian">🇷🇺 Russian</option>
+              <option value="🇯🇵 Japanese">🇯🇵 Japanese</option>
+              <option value="🇧🇬 Bulgarian">🇧🇬 Bulgarian</option>
+              <option value="🇰🇷 Korean">🇰🇷 Korean</option>
+              <option value="🇦🇲 Armenian">🇦🇲 Armenian</option>
+              <option value="🇱🇺 Dutch">🇱🇺 Dutch</option>
+              <option value="🇵🇰 Urdu">🇵🇰 Urdu</option>
             </Form.Control>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label htmlFor="description">
+              Tell us a little bit about yourself:
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+              id="description"
+            />
           </Form.Group>
           {this.state.message && (
             <Alert variant="danger">{this.state.message}</Alert>
           )}
-          <Button type="submit">Signup</Button>
+          <Button type="submit">Join our community</Button>
         </Form>
       </>
     );
