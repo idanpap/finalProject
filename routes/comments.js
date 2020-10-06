@@ -20,7 +20,6 @@ router.post("/", (req, res) => {
 router.get("/", (req, res) => {
   Comment.find()
     .then((comments) => {
-      console.log(comments);
       res.status(200).json(comments);
     })
     .catch((error) => {
