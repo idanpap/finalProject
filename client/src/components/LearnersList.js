@@ -47,7 +47,7 @@ export default class Projects extends Component {
           data.username
             .toLowerCase()
             .includes(this.state.search.toLowerCase()) ||
-          data.languagesSpoken.forEach((language) => {
+          data.languagesSpoken.some((language) => {
             return language
               .slice(5)
               .toLowerCase()
